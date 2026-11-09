@@ -50,7 +50,7 @@ class Boy:
         ball = Ball(self.x, self.y, self.face_dir * 10)
         game_world.add_oject(ball)
 
-    def handle_event(self, event):
+    def handle_event(self, event, allow_shot=True):
         if (event.type == SDL_KEYDOWN and
                 event.key == SDLK_SPACE and
                 self.state == 'SLEEP'):
@@ -59,7 +59,8 @@ class Boy:
 
         if (event.type == SDL_KEYDOWN and
                 event.key == SDLK_SPACE and
-                self.state in ('IDLE', 'RUN')):
+                self.state in ('IDLE', 'RUN') and
+                allow_shot):
             self.fire_ball()
             return
 
