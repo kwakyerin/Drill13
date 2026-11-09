@@ -37,7 +37,11 @@ def handle_events():
         elif item_mode.handle_event(event):
             continue
         elif not paused or event.type == SDL_KEYUP:
-            boy.handle_event(event, allow_shot=item_mode.can_shoot())
+            boy.handle_event(
+                event,
+                allow_shot=item_mode.can_shoot(),
+                ball_image=item_mode.get_ball_image(),
+            )
 
 
 def init():

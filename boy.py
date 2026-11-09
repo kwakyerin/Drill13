@@ -46,11 +46,12 @@ class Boy:
     def on_enter_RUN(self):
         self.frame = 0
 
-    def fire_ball(self):
-        ball = Ball(self.x, self.y, self.face_dir * 10)
+    def fire_ball(self, image_path='ball21x21.png'):
+        ball = Ball(self.x, self.y, self.face_dir * 10, image_path)
         game_world.add_oject(ball)
 
-    def handle_event(self, event, allow_shot=True):
+    def handle_event(self, event, allow_shot=True,
+                     ball_image='ball21x21.png'):
         if (event.type == SDL_KEYDOWN and
                 event.key == SDLK_SPACE and
                 self.state == 'SLEEP'):
@@ -61,7 +62,7 @@ class Boy:
                 event.key == SDLK_SPACE and
                 self.state in ('IDLE', 'RUN') and
                 allow_shot):
-            self.fire_ball()
+            self.fire_ball(ball_image)
             return
 
         if (event.type not in (SDL_KEYDOWN, SDL_KEYUP) or
