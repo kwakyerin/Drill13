@@ -1,6 +1,7 @@
 from pico2d import *
 import game_framework
 import game_world
+import item_mode
 import title_mode
 from boy import Boy
 from grass import Grass
@@ -33,6 +34,8 @@ def handle_events():
             pause_key_down = True
         elif event.type == SDL_KEYUP and event.key == SDLK_p:
             pause_key_down = False
+        elif item_mode.handle_event(event):
+            continue
         elif not paused or event.type == SDL_KEYUP:
             boy.handle_event(event)
 
@@ -43,6 +46,7 @@ def init():
     pause_started_at = 0.0
     pause_key_down = False
     pause_image = load_image('pause_icon.png')
+    item_mode.init()
     boy = Boy()
     game_world.add_oject(boy)
 
@@ -59,6 +63,7 @@ def update():
 def render():
     clear_canvas()
     game_world.render()
+    item_mode.draw()
     if paused:
         pause_image.draw(400, 300)
     update_canvas()
@@ -68,3 +73,4 @@ def finish():
     global pause_image
     game_world.clear()
     pause_image = None
+    item_mode.finish()
