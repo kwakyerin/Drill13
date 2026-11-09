@@ -1,5 +1,6 @@
 from pico2d import load_image
-from sdl2 import (SDL_KEYDOWN, SDL_KEYUP, SDLK_0, SDLK_i, SDLK_KP_0)
+from sdl2 import (SDL_KEYDOWN, SDL_KEYUP, SDLK_0, SDLK_1, SDLK_i,
+                  SDLK_KP_0, SDLK_KP_1)
 
 
 item_select_image = None
@@ -33,6 +34,12 @@ def handle_event(event):
         if is_open:
             is_open = False
         shooting_enabled = False
+        return True
+
+    if event.type == SDL_KEYDOWN and event.key in (SDLK_1, SDLK_KP_1):
+        if is_open:
+            is_open = False
+        shooting_enabled = True
         return True
 
     return False
